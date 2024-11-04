@@ -59,9 +59,10 @@ Variabel yang terdampak:
 hapus MyHomePage(title: 'Flutter Demo Home Page') menjadi MyHomePage()
 
 **Pada menu.dart:**
-- 'Tambahkan teks dan card dengan menambahkan barang-barang yang dijual. Define tipe pada list seperti berikut:'
 
 ```dart
+- Tambahkan teks dan card dengan menambahkan barang-barang yang dijual. Define tipe pada list seperti berikut:
+
 class ItemHomepage {
   final String name;
   final IconData icon;
@@ -74,7 +75,6 @@ class ItemHomepage {
 
 - Ubah sifat widget halaman dari stateful menjadi stateless. Lakukan perubahan pada bagian ({super.key, required this.title}) menjadi ({Key? key}) : super(key: key);. Selain itu, tambahkan barang-barang yang dijual (nama, icon, dan warna) dengan code berikut:
 
-```dart
 final List<ItemHomepage> items = [
   ItemHomepage("Lihat Daftar Produk", Icons.list, Color.fromRGBO(41, 51, 64, 1)),
   ItemHomepage("Tambah Produk", Icons.add, Color(0xff2a2828)),
@@ -84,7 +84,6 @@ final List<ItemHomepage> items = [
 
 - Ubah method Widget build(BuildContext context) menjadi seperti berikut:
 
-```dart
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
@@ -159,7 +158,6 @@ Widget build(BuildContext context) {
 
 - Membuat widget stateless baru untuk menampilkan card dengan code berikut:
 
-```dart
 import 'package:flutter/material.dart';
 import 'item_homepage.dart'; 
 
@@ -212,7 +210,6 @@ class ItemCard extends StatelessWidget {
 
 Tambahkan kode berikut di dalam child InkWell
 
-```dart
 onTap: () {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
