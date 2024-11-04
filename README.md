@@ -49,11 +49,11 @@ Variabel yang terdampak:
 
 5. **Jelaskan bagaimana cara kamu mengimplementasikan checklist-checklist di atas.**
 
-1. **Membuat sebuah program Flutter baru dengan tema E-Commerce yang sesuai dengan tugas-tugas sebelumnya.**
+1. Membuat sebuah program Flutter baru dengan tema E-Commerce yang sesuai dengan tugas-tugas sebelumnya.
 - Jalankan command flutter create jersey_mobile untuk membuat proyek Flutter baru.
 - Berpindah direktori ke proyek flutter baru dengan menjalankan command cd jersey_mobile.
 
-2. **Membuat tiga tombol sederhana dengan ikon dan teks**
+2. Membuat tiga tombol sederhana dengan ikon dan teks
 
 **Pada main.dart :**
 hapus MyHomePage(title: 'Flutter Demo Home Page') menjadi MyHomePage()
