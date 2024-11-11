@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:jersey_mobile/widgets/left_drawer.dart';
+import 'package:jersey_mobile/widgets/jersey_card.dart';
 
-class MyHomePage extends StatelessWidget  {
+class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
 
   final List<ItemHomepage> items = [
-    ItemHomepage("Lihat Daftar Produk", Icons.list, Color.fromRGBO(41, 51, 64, 1)),
-    ItemHomepage("Tambah Produk", Icons.add, Color(0xff2a2828)),
+    ItemHomepage("Product List", Icons.list, Color.fromRGBO(41, 51, 64, 1)),
+    ItemHomepage("Add Jersey", Icons.add, Color(0xff2a2828)),
     ItemHomepage("Logout", Icons.logout, Color(0xff8b1a1a)),
   ];
 
@@ -20,9 +22,8 @@ class MyHomePage extends StatelessWidget  {
             fontWeight: FontWeight.bold,
           ),
         ),
-        // Menghapus backgroundColor untuk menggunakan warna transparan
         backgroundColor: Colors.transparent,
-        elevation: 0, // Menghilangkan bayangan pada AppBar
+        elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -40,10 +41,14 @@ class MyHomePage extends StatelessWidget  {
             ),
           ),
         ),
+        // Mengubah warna ikon hamburger (menu) menjadi putih
+        iconTheme: const IconThemeData(
+          color: Colors.white, // Set warna ikon menjadi putih
+        ),
       ),
+      drawer: const LeftDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        // Menyusun widget secara vertikal dalam sebuah kolom.
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -76,58 +81,6 @@ class MyHomePage extends StatelessWidget  {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class ItemHomepage {
-  final String name;
-  final IconData icon;
-  final Color color;
-
-  ItemHomepage(this.name, this.icon, this.color);
-}
-
-class ItemCard extends StatelessWidget {
-  final ItemHomepage item;
-
-  const ItemCard(this.item, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: item.color,
-      borderRadius: BorderRadius.circular(12),
-      child: InkWell(
-        onTap: () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-                SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
-            );
-        },
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                const Padding(padding: EdgeInsets.all(3)),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
         ),
       ),
     );
