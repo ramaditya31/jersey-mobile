@@ -60,7 +60,7 @@ hapus MyHomePage(title: 'Flutter Demo Home Page') menjadi MyHomePage()
 
 **Pada menu.dart:**
 
-```dart
+
 - Tambahkan teks dan card dengan menambahkan barang-barang yang dijual. Define tipe pada list seperti berikut:
 
 class ItemHomepage {
@@ -217,3 +217,42 @@ onTap: () {
       SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
     );
 },
+
+</details>
+
+<details>
+
+<summary>TUGAS 8</summary>
+
+1. **Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?**
+
+Dalam Flutter, `const` digunakan untuk menginisialisasi objek yang nilai tetapnya ditentukan selama compile-time, sehingga meningkatkan performa dan efisiensi memori karena objek menggunakan instance yang sama dan melindungi nilai dari perubahan yang tidak diinginkan. Idealnya, `const` cocok untuk widget statis, nilai yang tetap, dan koleksi dengan isi konstan. Namun, sebaiknya tidak digunakan untuk data yang berubah selama runtime, widget yang memiliki state, atau data yang diperoleh dari API atau database, serta widget yang tergantung pada konteks.
+
+2. **Jelaskan dan bandingkan penggunaan Column dan Row pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!**
+
+Column digunakan untuk menyusun widget secara vertikal (atas ke bawah), sedangkan Row digunakan untuk menyusun widget secara horizontal (kiri ke kanan).
+
+Contoh implementasi:
+- Column digunakan untuk menyusun judul dan form fields di addjersey_form.dart
+- Row digunakan untuk menyusun card NPM, Nama, dan Kelas di menu.dart
+
+3. **Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!**
+
+Pada tugas kali ini saya menggunakan TextFieldForm pada semua input rincinya sebagai berikut:
+
+- Jersey Name (text)
+- Description (text)
+- Price (number)
+- Quantity (number)
+
+Elemen input Flutter lain yang tidak saya gunakan dalam tugas kali ini adalah: `Switch`, `Slider`, `TimePicker`, `CheckboxListTile`
+
+4. **Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?**
+
+Pada tugas ini tema aplikasi di main.dart menggunakan ThemeData dan colorScheme untuk menetapkan warna utama aplikasi. Tema ini dapat diimplementasikan secara konsisten di seluruh aplikasi melalui penggunaan Theme.of(context). Tetapi karena saya memilih untuk menggunakan warna gradient untuk beberapa elemen-elemen pada Flutter saya, maka tidak seluruhnya mengimplementasikan primary colour.
+
+5. **Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?**
+
+Dalam tugas kali ini, saya menggunakan `Navigator.push()` dan `Navigator.pushReplacement()` untuk navigasi. Navigasi ini diimplementasikan dalam drawer untuk berpindah ke halaman utama dan form penambahan jersey. Saya juga mengimplementasikan tombol "Tambah Item" pada card yang juga menggunakan `MaterialPageRoute` untuk mengarah ke form tersebut.
+
+</details>
