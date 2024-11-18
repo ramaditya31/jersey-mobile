@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jersey_mobile/screens/addjersey_form.dart';
+import 'package:jersey_mobile/screens/list_jerseyentry.dart';
 import 'package:jersey_mobile/screens/menu.dart';
 
 class LeftDrawer extends StatelessWidget {
@@ -76,6 +77,17 @@ class LeftDrawer extends StatelessWidget {
                 ),
               );
             },
+          ),
+          // Kode ListTile Menu
+          ListTile(
+              leading: const Icon(Icons.list_alt_rounded),
+              title: const Text('Jersey Entry List'),
+              onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const JerseyEntryPage()),
+                  );
+              },
           ),
         ],
       ),

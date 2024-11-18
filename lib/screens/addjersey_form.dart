@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:jersey_mobile/screens/menu.dart';
 import 'package:jersey_mobile/widgets/left_drawer.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class AddJerseyFormPage extends StatefulWidget {
   const AddJerseyFormPage({super.key});
@@ -10,6 +15,7 @@ class AddJerseyFormPage extends StatefulWidget {
 
 class _AddJerseyFormPageState extends State<AddJerseyFormPage> {
   final _formKey = GlobalKey<FormState>();
+  String _image = "";
   String _name = "";
   String _description = "";
   int _price = 0;
@@ -17,6 +23,8 @@ class _AddJerseyFormPageState extends State<AddJerseyFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -55,6 +63,29 @@ class _AddJerseyFormPageState extends State<AddJerseyFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Image",
+                    labelText: "Image",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      _image = value!;
+                    });
+                  },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter the image URL!";
+                    }
+                    return null;
+                  },
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -163,37 +194,38 @@ class _AddJerseyFormPageState extends State<AddJerseyFormPage> {
                         const Color.fromRGBO(41, 51, 64, 1), // RGB color for Save button
                       ),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Jersey Added!'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Jersey Name: $_name'),
-                                    Text('Description: $_description'),
-                                    Text('Price: $_price'),
-                                    Text('Quantity: $_quantity'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    _formKey.currentState!.reset();
-                                  },
-                                ),
-                              ],
+                    onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                            // Kirim ke Django dan tunggu respons
+                            final response = await request.postJson(
+                                "http://127.0.0.1:8000/create-flutter/",
+                                jsonEncode(<String, String>{
+                                    'image': _image,
+                                    'name': _name,
+                                    'description': _description,
+                                    'price': _price.toString(),
+                                    'quantity': _quantity.toString(),
+                                }),
                             );
-                          },
-                        );
-                      }
+                            if (context.mounted) {
+                                if (response['status'] == 'success') {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                    content: Text("New jersey saved!"),
+                                    ));
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => MyHomePage()),
+                                    );
+                                } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                        content:
+                                            Text("Try Again!"),
+                                    ));
+                                }
+                            }
+                        }
                     },
                     child: const Text(
                       "Save",
